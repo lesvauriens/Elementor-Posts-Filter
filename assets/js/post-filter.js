@@ -43,60 +43,65 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let posts = item.attr("data-posts");
         let filterBar = $jq(this).parents('.elementor-portfolio__filters');
 
-        // hide all
-        $jq("#" + posts).find('article').hide();
-        // set all to inactive
-        filterBar.find(".super-cat-post-filter").removeClass("elementor-active");
-
-        // sync option in Dropdown Filters
-        filterBar.find('.super-cat-dropdown-list').each(function() {
-            let toSelect = $jq(this).find('option[data-term="' + term + '"]');
-            if (toSelect.size() > 0) {
-                toSelect.attr('selected', 'selected');
-            } else {
-                $jq(this).find('option[data-term=""]').attr('selected', 'selected');
-            }
-        });
-
-        // Show / Hide all
-        if (term == '') {
-            // show all
-            filterBar.find('.super-cat-post-filter[data-term=""]').addClass("elementor-active");
-            if ('URLSearchParams' in window) {
-                var searchParams = new URLSearchParams(window.location.search);
-                searchParams.delete(filterBar.attr("data-id"));
-                var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-                history.pushState(null, '', newRelativePathQuery);
-
-                var postsClasses = "";
-                searchParams.forEach(function(term) {
-                    postsClasses += '.' + term;
-                });
-                $jq("#" + posts).find('article' + postsClasses).fadeIn(400);
-                if ($jq("#" + posts).find('article' + postsClasses).length == 0) {
-                    displayNoneMessage(posts);
-                } else {
-                    hideNoneMessage();
-                }
-            }
+        if ($jq(this).hasClass("elementor-active")) {
+            filterBar.find('li.elementor-portfolio__filter[data-term=""]').trigger("click");
         } else {
-            // show some
-            filterBar.find('.super-cat-post-filter[data-term="' + term + '"]').addClass("elementor-active");
-            if ('URLSearchParams' in window) {
-                var searchParams = new URLSearchParams(window.location.search);
-                searchParams.set(filterBar.attr("data-id"), term);
-                var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-                history.pushState(null, '', newRelativePathQuery);
 
-                var postsClasses = "";
-                searchParams.forEach(function(term) {
-                    postsClasses += '.' + term;
-                });
-                $jq("#" + posts).find('article' + postsClasses).fadeIn(400);
-                if ($jq("#" + posts).find('article' + postsClasses).length == 0) {
-                    displayNoneMessage(posts);
+            // hide all
+            $jq("#" + posts).find('article').hide();
+            // set all to inactive
+            filterBar.find(".super-cat-post-filter").removeClass("elementor-active");
+
+            // sync option in Dropdown Filters
+            filterBar.find('.super-cat-dropdown-list').each(function() {
+                let toSelect = $jq(this).find('option[data-term="' + term + '"]');
+                if (toSelect.size() > 0) {
+                    toSelect.attr('selected', 'selected');
                 } else {
-                    hideNoneMessage();
+                    $jq(this).find('option[data-term=""]').attr('selected', 'selected');
+                }
+            });
+
+            // Show / Hide all
+            if (term == '') {
+                // show all
+                filterBar.find('.super-cat-post-filter[data-term=""]').addClass("elementor-active");
+                if ('URLSearchParams' in window) {
+                    var searchParams = new URLSearchParams(window.location.search);
+                    searchParams.delete(filterBar.attr("data-id"));
+                    var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+                    history.pushState(null, '', newRelativePathQuery);
+
+                    var postsClasses = "";
+                    searchParams.forEach(function(term) {
+                        postsClasses += '.' + term;
+                    });
+                    $jq("#" + posts).find('article' + postsClasses).fadeIn(400);
+                    if ($jq("#" + posts).find('article' + postsClasses).length == 0) {
+                        displayNoneMessage(posts);
+                    } else {
+                        hideNoneMessage();
+                    }
+                }
+            } else {
+                // show some
+                filterBar.find('.super-cat-post-filter[data-term="' + term + '"]').addClass("elementor-active");
+                if ('URLSearchParams' in window) {
+                    var searchParams = new URLSearchParams(window.location.search);
+                    searchParams.set(filterBar.attr("data-id"), term);
+                    var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+                    history.pushState(null, '', newRelativePathQuery);
+
+                    var postsClasses = "";
+                    searchParams.forEach(function(term) {
+                        postsClasses += '.' + term;
+                    });
+                    $jq("#" + posts).find('article' + postsClasses).fadeIn(400);
+                    if ($jq("#" + posts).find('article' + postsClasses).length == 0) {
+                        displayNoneMessage(posts);
+                    } else {
+                        hideNoneMessage();
+                    }
                 }
             }
         }
@@ -108,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var postsClasses = "";
         searchParams.forEach(function(term) {
             postsClasses += '.' + term;
-            $jq('li.elementor-portfolio__filter[data-term=' + term + ']').trigger("click");
+            $jq('li.elementor-portfolio__filter[data-term="' + term + '"]').trigger("click");
         });
         if ($jq("#" + posts).find('article' + postsClasses).length == 0) {
             displayNoneMessage(posts);
