@@ -130,6 +130,16 @@ class Post_Filter extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'no_result_text',
+            [
+                'label' => __( 'Text to show for No results', 'elementor-posts-filter' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => "No results found.",
+                'description' => __( 'If multiple filters, fill this field only for the first.', 'elementor' ),
+            ]
+        );
+
+        $this->add_control(
             'hide_empty',
             [
                 'label' => __( 'Hide empty', 'elementor' ),
@@ -290,7 +300,7 @@ class Post_Filter extends \Elementor\Widget_Base {
         ?>
 
         <div>
-            <ul class="elementor-portfolio__filters cat-filter-for-<?php echo $settings['post_id']; ?>" id="<?php echo $filtererId; ?>" data-hide-empty="<?php echo($settings["hide_empty"]); ?>">
+            <ul class="elementor-portfolio__filters cat-filter-for-<?php echo $settings['post_id']; ?>" data-no-results="<?php echo($settings["no_result_text"]); ?>" id="<?php echo $filtererId; ?>" data-hide-empty="<?php echo($settings["hide_empty"]); ?>">
                 <?php echo $placeholder; ?>
                 <?php echo(implode($li)); ?>
             </ul>

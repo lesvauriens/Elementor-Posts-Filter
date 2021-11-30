@@ -1,8 +1,6 @@
-# Elementor Posts Filter
+# Elementor Posts Filter v2
 
 Trying to improve PieterT2000's work by adding support to manage multiple active filters if you use multiple filters.
-
-
 
 This widget, used in combination with the Elementor Post widget, gives you the same live filtering bar the Portfolio widget has.
 
